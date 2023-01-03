@@ -29,16 +29,16 @@ Boy.prototype = {
     },
     move : function(dir){
         switch(dir){
-            case "ArrowUp": //up
+            case 1:
                 this.y -= 10;
                 break;
-            case "ArrowRight": // right
+            case 2:
                 this.x += 10;
                 break;
-            case "ArrowLeft": // left
+            case 3:
                 this.y += 10;
                 break;
-            case "ArrowDown": // down
+            case 4:
                 this.x -= 10;
                 break;
         }

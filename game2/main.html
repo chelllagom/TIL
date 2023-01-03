@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./item/boy.js"></script>
+    <script src="./panel/game-canvas.js"></script>
+    <script src="app.js"></script>
+    <script>
+        let kor = 20;
+        let eng = 30;
+
+        let obj1 = {
+            kor:kor,
+            eng:eng,
+            total:function(){
+                return this.kor+this.eng;
+            }
+        }
+
+        function print(exam){
+            console.log("kor:"+exam.kor);
+            console.log("eng:"+exam.eng);
+            console.log("total:"+exam.total());
+        }
+        print(obj1);
+
+        //es6----------------------------------------
+
+        let obj2 = {kor, eng, total(){
+            return this.kor+this.eng;
+        }}
+
+        function print1({kor,eng}){
+            console.log("kor:"+kor);
+            console.log("eng:"+eng);
+        }
+        print1(obj2);
+        
+        function print2(exam){
+            //변수 선언
+            let {kor, eng, aa=9} = exam;
+
+            console.log("kor:"+kor);
+            console.log("eng:"+eng);
+            console.log("aa:"+aa);
+            console.log("total:"+exam.total());
+        }
+        print2(obj2);
+    </script>
+</head>
+<body>
+    <canvas class="game-canvas" width="700" height="600"></canvas>
+</body>
+</html>
