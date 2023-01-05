@@ -13,3 +13,7 @@
 ->심볼 등장 및 연산 가능
 6. Object Destructuring
 ->let {객체속성, ...} = 객체;
+7. Array Destructuring
+->let [배열인덱스변수, ...] = 배열;
+8. Collection + Iterator
+->Set, Map

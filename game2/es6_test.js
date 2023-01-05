@@ -122,3 +122,135 @@ exam = {
 let {student:{name,phone}} = exam; //계층도 뽑아낼 수 있다.
 //console.log(name);
 //console.log(phone);
+
+//11.----------------------------------------------
+//Array Destructuring
+let kors = [1,2,3];
+let kors2 = [4,5,6];
+let [kor1, kor2, kor3] = kors;
+// console.log(kor1);
+
+[kor1, kor2, kor3] = kors2;
+// console.log(kor1);
+
+//Object이면 ()로 쪼개야한다.
+let std1 = {name:"dragon", phone:"010"};
+({name, phone} = std1);
+// console.log(name);
+// console.log(phone);
+
+//12.----------------------------------------------
+//Array Destructuring for swap
+let a,b;
+[a, b] = kors2;
+//  console.log(a);
+//  console.log(b);
+
+[a, b] = [b, a]; //swap
+// console.log(a);
+// console.log(b);
+
+//13.----------------------------------------------
+//Array Destructuring for last index
+let [, , eng3] = kors;
+// console.log(eng3);
+
+//14.----------------------------------------------
+//Array Destructuring + spread operator
+let nums = [1,2,3,4,5,6,7,8,9,10];
+let [n1, n2, ...rest] = nums;
+// console.log(rest);
+
+//15.----------------------------------------------
+//Set
+//let set = new Set();
+let set = new Set([2,3,4]);
+set.add(5);
+set.add("5");
+set.add(2);
+set.add(5);
+// console.log(set.size);
+
+// for(let x of set)
+    // console.log(typeof x, x);
+
+//has() delete() clear()..
+
+//iterator? index?가 없어서 출력 안됨
+// for(let x in set)
+    // console.log(x);
+
+//16.----------------------------------------------
+// set.forEach((v, k)=>{
+//     console.log(k, v);
+// })
+
+//17.----------------------------------------------
+//Map
+//일회성으로 사용할 데이터 구조라면 class가 아닌 map을 사용하는 것이 좋다.
+let map = new Map();
+map.set("id", 1);
+map.set(1, `key가 number?`);
+map.set(title, `title이란?`);
+map.set(`title`, `title이란?`);
+
+// console.log(`foreach-----------------`);
+// map.forEach((v, k)=>{
+//     console.log(k, v);
+// })
+// console.log(`foreach-----------------`);
+
+// for(let x of map)
+//     console.log(x);
+
+// console.log(`spread-----------------`);
+// console.log(...map);
+
+//18.----------------------------------------------
+//Map key, value 꺼내기
+// for(let x of map.keys())
+//     console.log(x, map.get(x));
+
+// console.log(`-----------------`);
+//of가 map의 iterator를 가지고 있어서?
+// for(let [k, v] of map)
+//     console.log(k, v);
+
+// console.log(`-----------------`);
+//map.entries() -> set의 iterator를 반환
+// for(let [k, v] of map.entries())
+//     console.log(k,v);
+
+// for(let n of map)
+//     console.log(`n : ${n[1]}`);
+    
+//19.----------------------------------------------
+//Object -> Map
+let obj = {
+    a: 1,
+    b: 2,
+    c: 3,
+};
+
+let newMap = new Map(Object.entries(obj));
+// console.log(newMap);
+
+// for(let x of newMap)
+//     console.log(x);
+
+// for(let x of Object.entries(obj))
+//     console.log(x);
+
+//20.----------------------------------------------
+//map()
+let list = [
+    {id:1, title:`haha`},
+    {id:2, title:`hoho`},
+    {id:3, title:`hihi`},
+    {id:4, title:`hehe`},
+]
+
+let titleSpan = list.map((i) => `<span>${i.title}</span>`);
+console.log(titleSpan);
+
+//What is iterator?
