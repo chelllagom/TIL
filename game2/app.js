@@ -4,4 +4,7 @@ window.addEventListener("load", function(){
     gameCanvas.run();
     
     //gameCanvas.pause();
+
+    //main(UI) thread와 gameCanvas thread를 분리
+    //상태 변수를 가지고 두 스레드가 소통
 });

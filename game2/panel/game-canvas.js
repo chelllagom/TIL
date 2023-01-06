@@ -1,14 +1,24 @@
 class GameCanvas{
     constructor(){
         this.dom = document.querySelector(".game-canvas");
+        //key 이벤트를 받지 않는 html tag에는 tabindex 속성을 사용하여
+        //강제적으로 이벤트를 발생 시킬 수 있다.
+        this.dom.focus();
+        this.dom.onkeydown = this.keyDownHandler.bind(this);
+
         /** @type {CanvasRenderingContext2D} */
         this.ctx = this.dom.getContext("2d");
         this.boy = new Boy(100, 100);
+        this.bg = new Background();
+
+        //상태변수
         this.gameOver = false;
         this.pause = false;
 
         //bind를 통해서 this가 dom->GameCanvas로 변경됨
         this.dom.onclick = this.clickHandler.bind(this);
+        //document.querySelector("#wrap").onkeydown = this.keyDownHandler.bind(this);
+        //document.onkeydown = this.keyDownHandler.bind(this);
     }
     
     run(){
@@ -28,7 +38,7 @@ class GameCanvas{
             //화살표 함수는 지역화가 안되기 때문에 this가 없다.
             //this를 사용하면 상위의 this가 사용되기 때문에 GameCanvas를 말한다.
             this.run();
-        }, 17);
+        }, 1);
     }
     pauser(){
         this.pause = true;
@@ -38,6 +48,7 @@ class GameCanvas{
        //this.boy.move(2);
     }
     draw(){
+        this.bg.draw(this.ctx);
         this.boy.draw(this.ctx);
     }
     clickHandler(e){
@@ -46,8 +57,8 @@ class GameCanvas{
         //this.boy.move(2);
         //this.boy.draw(this.ctx);  
     }
-    keyUpHandler(){
-        console.log(this.event.keyCode);
+    keyDownHandler(e){
+        this.boy.move(e.code);
     }
 }
 

@@ -3,59 +3,100 @@ class Boy{
         this.x = x || 100;
         this.y = y || 100;
         
+        this.vx = 0;
+        this.vy = 0;
+
         this.dx = 0;
         this.dy = 0;
 
-        this.ix = 0;
-        this.iy = 0;
+        this.ix = 1;
+        this.iy = 2;
 
+        this.img = document.querySelector("#boy");
         this.sw = 106;
         this.sh = 148.25;
-        this.sx = this.sw*1;
-        this.sy = this.sh*2;
         this.isFirst = true;
+        this.walkDelay = 0;
     }
-    update(){
-        this.x += this.dx;
-        this.y += this.dy;
-    }
-    draw(ctx){
-        let img = new Image();
-        img.src = "./img/boy.png";
-        img.onload = function(){
-            console.log(this);
-            if(this.isFirst){
-                this.isFirst = false;
-            }else{
-                ctx.clearRect(0,0,700,600);
+    
+    walk(){
+        if(this.vx === 0 || this.vy === 0){
+            this.ix = 1;
+        }else{
+            if(this.walkDelay++ > 40){
+                this.walkDelay = 0;
+                if(this.id === 1)
+                    this.id = 0;
+                else
+                    this.ix = this.ix === 0 ? 2 : 0;
             }
-            ctx.drawImage(img,
-                this.sx,this.sy,this.sw,this.sh,
-                this.x,this.y,106,148.25);
-        }.bind(this);
+        }
+    }
+
+    update(){
+
+        this.walk();
+        
+        if( (this.dx-1 <= this.x && this.x <= this.dx+1) || 
+            (this.dy-1 <= this.y && this.y <= this.dy+1) ){
+            this.vx = 0;
+            this.vy = 0;
+        }
+        this.x += this.vx;
+        this.y += this.vy;
+    }
+    
+    draw(ctx){
+        this.sx = this.sw*this.ix;
+        this.sy = this.sh*this.iy;
+
+        // let img = new Image();
+        // img.src = "./img/boy.png";
+        // img.onload = function(){
+        //     console.log(this);
+        // }.bind(this);
+        // if(this.isFirst){
+        //     this.isFirst = false;
+        // }else{
+        //     ctx.clearRect(0,0,700,600);
+        // }
+        ctx.drawImage(this.img,
+            this.sx,this.sy,this.sw,this.sh,
+            this.x-this.sw/2,this.y-this.sh+15,this.sw,this.sh);
     }
     move(dir){
         switch(dir){
-            case 1:
-                this.y -= 1;
+            case "ArrowUp":
+                this.moveTo(this.x, this.y-10);
+                //this.y -= 10;
                 break;
-            case 2:
-                this.x += 1;
+            case "ArrowRight":
+                this.moveTo(this.x+10, this.y);
+                //this.moveTo(10, 0);
+                //this.x += 10;
                 break;
-            case 3:
-                this.y += 1;
+            case "ArrowDown":
+                this.moveTo(this.x, this.y+10);
+                //this.moveTo(0, 10);
+                //this.y += 10;
                 break;
-            case 4:
-                this.x -= 1;
+            case "ArrowLeft":
+                this.moveTo(this.x-10, this.y);
+                //this.moveTo(-10, 0);
+                //this.x -= 10;
                 break;
         }
+        //this.walk();
     }
-    moveTo(dx,dy){
-        let w = dx - this.x;
-        let h = dy - this.y;
+    moveTo(vx,vy){
+        this.dx = vx;
+        this.dy = vy;
+
+        let w = vx - this.x;
+        let h = vy - this.y;
 
         let d = Math.sqrt(w*w+h*h);
-        this.dx = w/d;
-        this.dy = h/d;
+        this.vx = w/d;
+        this.vy = h/d;
     }
 }
