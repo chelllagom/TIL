@@ -1,7 +1,12 @@
 <es6>
 1. 모듈화
+-><script type="module"> 
+->import `classname` from `path`
+->export (defalut) class `classname`
+->import 받은 객체는 여러 곳에서 import하더라도 하나의 객체를 공유하여 사용한다
+(JavaScript에서 singleton pattern 사용 가능!)
 2. 객체지향(캡슐화)
-->class, constructor
+->class(속성, 메서드, 이벤트), constructor, #(private), set, get
 3. 지역화(스코프)
 ->let, const의 등장으로 인하여 지역화가 가능
 +) 2진수와 8진수를 표기할 수 있게 되었다.

@@ -5,14 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="./item/boy.js"></script>
+    <!-- <script src="./item/boy.js"></script>
     <script src="./item/background.js"></script>
+    <script src="./item/enemy.js"></script>
     <script src="./panel/game-canvas.js"></script>
-    <script src="app.js"></script>
+    변수 혹은 함수 충돌 시 마지막 스크립트가 사용됨-->
+
+    <script type="module" src="app.js"></script>
+    
+    <!-- <script type="module" src="module/module.js"></script> -->
     <!-- <script src="es6_test.js"></script> -->
     <!-- <script src="array_test.js"></script> -->
 </head>
 <body>
+    <img src="./img/enemy.png" id="enemy" alt="enemy" style="display: none;">
     <img src="./img/boy.png" id="boy" alt="boy" style="display: none;">
     <img src="./img/bg.png" id="background" alt="background" style="display: none;">
     <canvas tabindex="1" class="game-canvas" width="700" height="600"></canvas>

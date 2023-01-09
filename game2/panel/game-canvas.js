@@ -1,16 +1,25 @@
-class GameCanvas{
+import Boy from "../item/boy.js";
+import Background from "../item/background.js";
+import Enemy from "../item/enemy.js";
+
+export default class GameCanvas{
+    //what is default?
+
     constructor(){
         this.dom = document.querySelector(".game-canvas");
         //key 이벤트를 받지 않는 html tag에는 tabindex 속성을 사용하여
         //강제적으로 이벤트를 발생 시킬 수 있다.
         this.dom.focus();
         this.dom.onkeydown = this.keyDownHandler.bind(this);
+        this.dom.onkeyup = this.keyUpHandler.bind(this);
 
         /** @type {CanvasRenderingContext2D} */
         this.ctx = this.dom.getContext("2d");
         this.boy = new Boy(100, 100);
-        this.bg = new Background();
+        console.log(`encapsulation speed : ${this.boy.speed}`);
 
+        this.bg = new Background();
+        this.enemy = new Enemy();
         //상태변수
         this.gameOver = false;
         this.pause = false;
@@ -45,11 +54,12 @@ class GameCanvas{
     }
     update(){
         this.boy.update();
-       //this.boy.move(2);
+        this.enemy.update();
     }
     draw(){
         this.bg.draw(this.ctx);
         this.boy.draw(this.ctx);
+        this.enemy.draw(this.ctx);
     }
     clickHandler(e){
         //this.pauser();
@@ -59,6 +69,9 @@ class GameCanvas{
     }
     keyDownHandler(e){
         this.boy.move(e.code);
+    }
+    keyUpHandler(e){
+        this.boy.stop(e.code);
     }
 }
 

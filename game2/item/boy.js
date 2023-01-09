@@ -1,4 +1,7 @@
-class Boy{
+export default class Boy{
+    //private 속성 추가(캡슐화)
+    #speed;
+
     constructor(x,y){
         this.x = x || 100;
         this.y = y || 100;
@@ -11,6 +14,13 @@ class Boy{
 
         this.ix = 1;
         this.iy = 2;
+        
+        this.keyWalk = false;
+        this.moveUp = false;
+        this.moveDown = false;
+        this.moveLeft = false;
+        this.moveRight = false;
+        this.#speed = 0;
 
         this.img = document.querySelector("#boy");
         this.sw = 106;
@@ -19,23 +29,43 @@ class Boy{
         this.walkDelay = 0;
     }
     
-    walk(){
-        if(this.vx === 0 || this.vy === 0){
+    //speed getter, setter
+    // ver1
+    /*setSpeed(speed){
+        this.#speed = speed;
+    }
+    getSpeed(){
+        return this.#speed;
+    }*/
+    // ver2
+    set speed(speed){
+        this.#speed = speed;
+    }
+    get speed(){
+        return this.#speed;
+    }
+
+    walkStatus(){
+        if((this.vx === 0 || this.vy === 0) && !this.keyWalk){
             this.ix = 1;
         }else{
-            if(this.walkDelay++ > 40){
-                this.walkDelay = 0;
-                if(this.id === 1)
-                    this.id = 0;
-                else
-                    this.ix = this.ix === 0 ? 2 : 0;
-            }
+            this.walk();
+        }
+    }
+
+    walk(){
+        if(this.walkDelay++ > 40){
+            this.walkDelay = 0;
+            if(this.ix === 1)
+                this.ix = 0;
+            else
+                this.ix = this.ix === 0 ? 2 : 0;
         }
     }
 
     update(){
 
-        this.walk();
+        this.walkStatus();
         
         if( (this.dx-1 <= this.x && this.x <= this.dx+1) || 
             (this.dy-1 <= this.y && this.y <= this.dy+1) ){
@@ -44,6 +74,17 @@ class Boy{
         }
         this.x += this.vx;
         this.y += this.vy;
+
+        //move refactoring
+        if(this.moveUp)
+            this.y -= 1 + this.#speed;
+        if(this.moveDown)
+            this.y += 1 + this.#speed;
+        if(this.moveLeft)
+            this.x -= 1 + this.#speed;
+        if(this.moveRight)
+            this.x += 1 + this.#speed;
+        //move refactoring
     }
     
     draw(ctx){
@@ -65,28 +106,46 @@ class Boy{
             this.x-this.sw/2,this.y-this.sh+15,this.sw,this.sh);
     }
     move(dir){
+        this.keyWalk = true;
         switch(dir){
             case "ArrowUp":
-                this.moveTo(this.x, this.y-10);
-                //this.y -= 10;
+                this.moveUp = true;
+                this.iy = 0;
                 break;
             case "ArrowRight":
-                this.moveTo(this.x+10, this.y);
-                //this.moveTo(10, 0);
-                //this.x += 10;
+                this.moveRight = true;
+                this.iy = 1;
                 break;
             case "ArrowDown":
-                this.moveTo(this.x, this.y+10);
-                //this.moveTo(0, 10);
-                //this.y += 10;
+                this.moveDown = true;
+                this.iy = 2;
                 break;
             case "ArrowLeft":
-                this.moveTo(this.x-10, this.y);
-                //this.moveTo(-10, 0);
-                //this.x -= 10;
+                this.moveLeft = true;
+                this.iy = 3;
                 break;
         }
-        //this.walk();
+    }
+    stop(dir){
+        this.keyWalk = false;
+        switch(dir){
+            case "ArrowUp":
+                this.moveUp = false;
+                this.iy = 0;
+                break;
+            case "ArrowRight":
+                this.moveRight = false;
+                this.iy = 1;
+                break;
+            case "ArrowDown":
+                this.moveDown = false;
+                this.iy = 2;
+                break;
+            case "ArrowLeft":
+                this.moveLeft = false;
+                this.iy = 3;
+                break;
+        }
     }
     moveTo(vx,vy){
         this.dx = vx;
