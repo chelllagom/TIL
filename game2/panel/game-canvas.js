@@ -16,7 +16,6 @@ export default class GameCanvas{
         /** @type {CanvasRenderingContext2D} */
         this.ctx = this.dom.getContext("2d");
         this.boy = new Boy(100, 100);
-        console.log(`encapsulation speed : ${this.boy.speed}`);
 
         this.bg = new Background();
         this.enemy = new Enemy();
@@ -65,7 +64,9 @@ export default class GameCanvas{
         //this.pauser();
         this.boy.moveTo(e.x,e.y);
         //this.boy.move(2);
-        //this.boy.draw(this.ctx);  
+        //this.boy.draw(this.ctx);
+        console.log(`encapsulation get speed function : ${this.boy.speed}`);
+        console.log(`after encapsulation set speed function : ${this.boy.speed = 10}`);
     }
     keyDownHandler(e){
         this.boy.move(e.code);

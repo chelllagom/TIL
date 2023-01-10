@@ -1,6 +1,8 @@
 export default class Boy{
     //private 속성 추가(캡슐화)
-    #speed;
+    //클래스 내부에서 변수명이 변경되거나 로직이 바뀌어도
+    //외부에서 getter, setter를 통한 접근을 하기 때문에 js에서 캡슐화 및 은닉화 가능해짐
+    #speedNameChange;
 
     constructor(x,y){
         this.x = x || 100;
@@ -20,7 +22,7 @@ export default class Boy{
         this.moveDown = false;
         this.moveLeft = false;
         this.moveRight = false;
-        this.#speed = 0;
+        this.#speedNameChange = 0;
 
         this.img = document.querySelector("#boy");
         this.sw = 106;
@@ -38,12 +40,13 @@ export default class Boy{
         return this.#speed;
     }*/
     // ver2
-    set speed(speed){
-        this.#speed = speed;
+    set speed(value){
+        this.#speedNameChange = value;
     }
     get speed(){
-        return this.#speed;
+        return this.#speedNameChange;
     }
+
 
     walkStatus(){
         if((this.vx === 0 || this.vy === 0) && !this.keyWalk){
@@ -77,13 +80,13 @@ export default class Boy{
 
         //move refactoring
         if(this.moveUp)
-            this.y -= 1 + this.#speed;
+            this.y -= 1 + this.#speedNameChange;
         if(this.moveDown)
-            this.y += 1 + this.#speed;
+            this.y += 1 + this.#speedNameChange;
         if(this.moveLeft)
-            this.x -= 1 + this.#speed;
+            this.x -= 1 + this.#speedNameChange;
         if(this.moveRight)
-            this.x += 1 + this.#speed;
+            this.x += 1 + this.#speedNameChange;
         //move refactoring
     }
     
