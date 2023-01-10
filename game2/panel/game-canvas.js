@@ -1,6 +1,7 @@
 import Boy from "../item/boy.js";
 import Background from "../item/background.js";
 import Enemy from "../item/enemy.js";
+import Fire from "../item/fire.js";
 
 export default class GameCanvas{
     //what is default?
@@ -16,19 +17,33 @@ export default class GameCanvas{
         /** @type {CanvasRenderingContext2D} */
         this.ctx = this.dom.getContext("2d");
         this.boy = new Boy(100, 100);
-
         this.bg = new Background();
-        this.enemy = new Enemy();
+        this.enemies = [];
+        this.fires = [];
+
         //상태변수
         this.gameOver = false;
         this.pause = false;
+        this.enemyDelay = 60;
 
         //bind를 통해서 this가 dom->GameCanvas로 변경됨
         this.dom.onclick = this.clickHandler.bind(this);
         //document.querySelector("#wrap").onkeydown = this.keyDownHandler.bind(this);
         //document.onkeydown = this.keyDownHandler.bind(this);
     }
-    
+
+    //add enemy callback function
+    onOutOfScreen(en) {
+        this.enemies.splice(this.enemies.indexOf(en),1);
+    }
+    //////////////////////////////
+    //아래 함수와 다른 점은? 화살표 함수는 내부적으로 new Function으로 
+    //함수를 계속 만들어주기 때문에 멤버함수로 한번만 생성 후 
+    //대입하여 사용하는 것이 바람직하다.
+    // onOutOfScreen = (en) => {
+    //     this.enemies.splice(this.enemies.indexOf(en),1);
+    // }
+
     run(){
         if(this.pause)
             return;
@@ -53,26 +68,45 @@ export default class GameCanvas{
     }
     update(){
         this.boy.update();
-        this.enemy.update();
+        for(let enemy of this.enemies)
+            enemy.update();
+        
+        for(let f of this.fires)
+            f.update();
+        
+        if(this.enemyDelay == 0){
+            this.enemyDelay = this.getRandomIntInclusive(30, 180);
+            let x = this.getRandomIntInclusive(-50, this.dom.width+50);
+            let y = -50;
+            this.enemies.push(new Enemy(x,y, this.onOutOfScreen.bind(this)));
+        }
+        this.enemyDelay--;
+        //this.fire.update();
+    }
+    getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min; //최댓값도 포함, 최솟값도 포함
     }
     draw(){
         this.bg.draw(this.ctx);
         this.boy.draw(this.ctx);
-        this.enemy.draw(this.ctx);
+        for(let enemy of this.enemies)
+            enemy.draw(this.ctx);
+        for(let f of this.fires)
+            f.draw(this.ctx);
     }
     clickHandler(e){
-        //this.pauser();
         this.boy.moveTo(e.x,e.y);
-        //this.boy.move(2);
-        //this.boy.draw(this.ctx);
-        console.log(`encapsulation get speed function : ${this.boy.speed}`);
-        console.log(`after encapsulation set speed function : ${this.boy.speed = 10}`);
     }
     keyDownHandler(e){
         this.boy.move(e.code);
     }
     keyUpHandler(e){
         this.boy.stop(e.code);
+        if(e.code === "Space"){
+            this.fires.push(new Fire(this.boy.x, this.boy.y));
+        }
     }
 }
 

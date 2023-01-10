@@ -1,3 +1,5 @@
+import fire from "./fire.js";
+
 export default class Boy{
     //private 속성 추가(캡슐화)
     //클래스 내부에서 변수명이 변경되거나 로직이 바뀌어도
@@ -27,9 +29,10 @@ export default class Boy{
         this.img = document.querySelector("#boy");
         this.sw = 106;
         this.sh = 148.25;
+
         this.isFirst = true;
         this.walkDelay = 0;
-    }
+     }
     
     //speed getter, setter
     // ver1
@@ -124,9 +127,11 @@ export default class Boy{
                 this.iy = 2;
                 break;
             case "ArrowLeft":
-                this.moveLeft = true;
+                this.moveLeft = true; 
                 this.iy = 3;
                 break;
+            case "Space":
+                new fire(this.x, this.y);
         }
     }
     stop(dir){
