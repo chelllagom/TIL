@@ -18,7 +18,7 @@ export default class GameCanvas{
         this.ctx = this.dom.getContext("2d");
         this.boy = new Boy(100, 100);
         this.bg = new Background();
-        this.enemies = [];
+        this.enemies = []; 
         this.fires = [];
 
         //상태변수
