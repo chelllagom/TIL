@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="./app.js"></script>
+    <style>
+        img{
+            display: none;
+        }
+        canvas{
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div style="display: none;"><!-- img area -->
+        <!-- 유병우 img area -->
+        <img id="bg-map" src="game/yoo/img/map2.jpg">
+        <img id="bg-gauge" src="game/yoo/img/redgauge1-nuky.png">
+        <img id="bg-wolf" src="game/yoo/img/windwolf.png">
+        <img id="p-btn" src="game/yoo/img/wind2nuky.png">
+        <img id="p-gauge" src="game/yoo/img/windga-nu.png">
+        <!-- /유병우 img area -->
+        <!-- 임한응 img area -->
+        <img class="basic-fireplace" src="./img/game/fireplace/basic-fireplace.webp" alt="basic-fireplace">
+        <img class="big-fire" src="./img/game/fireplace/big-fire.png" alt="big-fire">
+        <img class="middle-fire" src="./img/game/fireplace/middle-fire.webp" alt="middle-fire">
+        <img class="small-fire" src="./img/game/fireplace/small-fire.jpg" alt="small-fire">
+        <!-- /임한응 img area -->
+    </div><!-- /img area -->
+
+    <canvas class="game-canvas" width="1920" height="1080" tabindex="0" ></canvas>   <!-- 디스플레이논 삭제,탭인덱스 추가 -->
+    <canvas class="story-canvas" width="1920" height="1080" style="display:none;"></canvas>
+</body>
+</html>
