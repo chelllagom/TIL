@@ -1,4 +1,5 @@
 import fire from "./fire.js";
+import {context} from "../context.js";
 
 export default class Boy{
     //private 속성 추가(캡슐화)
@@ -27,6 +28,11 @@ export default class Boy{
         this.#speedNameChange = 0;
 
         this.img = document.querySelector("#boy");
+        this.halfX = this.img.width/2;
+        this.halfY = this.img.height/2;
+        this.centerX = this.x+this.halfX;
+        this.centerY = this.y+this.halfY;
+        
         this.sw = 106;
         this.sh = 148.25;
 
@@ -70,6 +76,19 @@ export default class Boy{
     }
 
     update(){
+        for(let enemy of context.enemies){
+            // let w = enemy.halfX + this.halfX;
+            // let h = enemy.halfY + this.halfY;
+            let destructionDistance = enemy.halfX + this.halfX;
+            let realX = enemy.centerX - this.centerX;
+            let realY = enemy.centerY - this.centerY;
+            let r1r2 = Math.sqrt(realX*realX+realY*realY);
+
+            //console.log(`destructionDistance : ${destructionDistance}`);
+            //console.log(`r1r2 : ${r1r2}`);
+            if(destructionDistance >= r1r2)
+                console.log(`충돌발생`);
+        }
 
         this.walkStatus();
         
@@ -110,6 +129,10 @@ export default class Boy{
         ctx.drawImage(this.img,
             this.sx,this.sy,this.sw,this.sh,
             this.x-this.sw/2,this.y-this.sh+15,this.sw,this.sh);
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.sw/2, 0, 2 * Math.PI);
+        ctx.stroke();
     }
     move(dir){
         this.keyWalk = true;

@@ -2,11 +2,13 @@ import Boy from "../item/boy.js";
 import Background from "../item/background.js";
 import Enemy from "../item/enemy.js";
 import Fire from "../item/fire.js";
+import {context} from "../context.js";
 
 export default class GameCanvas{
     //what is default?
 
     constructor(){
+
         this.dom = document.querySelector(".game-canvas");
         //key 이벤트를 받지 않는 html tag에는 tabindex 속성을 사용하여
         //강제적으로 이벤트를 발생 시킬 수 있다.
@@ -19,6 +21,8 @@ export default class GameCanvas{
         this.boy = new Boy(100, 100);
         this.bg = new Background();
         this.enemies = []; 
+        context.enemies = this.enemies;
+
         this.fires = [];
 
         //상태변수

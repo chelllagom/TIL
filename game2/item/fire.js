@@ -5,6 +5,15 @@ export default class Fire{
         this.#x = x;
         this.#y = y;
         this.img = document.querySelector("#fire");
+
+        this.ix = 0;
+        this.iy = 0;
+        this.sw = this.img.width/4;
+        this.sh = this.img.height/5;
+         
+        this.sx = this.sw*this.ix;
+        this.sy = this.sh*this.iy;
+        this.delay = 0;
     }
 
     set x(x){
@@ -21,8 +30,10 @@ export default class Fire{
     }
     update(){
         this.y -= 1;
+
     }
     draw(ctx){
-        ctx.drawImage(this.img, this.x, this.y);
+        ctx.drawImage(this.img, this.sx,this.sy,this.sw,this.sh,
+            this.x-this.sw/2,this.y-this.sh+15,this.sw,this.sh);
     }
 }
