@@ -10,29 +10,42 @@
         img{
             display: none;
         }
-        canvas{
-            background-color: aqua;
+        .game-canvas{
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            width: 1400px;
         }
+        @font-face { /* 배민 기랑해랑체 폰트 적용 */
+            font-family: "bmkrhr";
+            src: url("font/BMKIRANGHAERANG-TTF.ttf");
+        } /* 이후 bmkrhr으로 폰트 적용 가능 */
+        /* .bmkrhr{
+            font-family: 'bmkrhr', serif;
+        } */
     </style>
 </head>
 <body>
     <div style="display: none;"><!-- img area -->
         <!-- 유병우 img area -->
-        <img id="bg-map" src="game/yoo/img/map2.jpg">
+        <!-- <img id="bg-map" src="game/yoo/img/map2.jpg">
         <img id="bg-gauge" src="game/yoo/img/redgauge1-nuky.png">
         <img id="bg-wolf" src="game/yoo/img/windwolf.png">
         <img id="p-btn" src="game/yoo/img/wind2nuky.png">
-        <img id="p-gauge" src="game/yoo/img/windga-nu.png">
+        <img id="p-gauge" src="game/yoo/img/windga-nu.png"> -->
         <!-- /유병우 img area -->
         <!-- 임한응 img area -->
         <img class="basic-fireplace" src="./img/game/fireplace/basic-fireplace.webp" alt="basic-fireplace">
+        <img class="fireplace" src="./img/game/fireplace/fireplace.png" alt="fireplace">
         <img class="big-fire" src="./img/game/fireplace/big-fire.png" alt="big-fire">
         <img class="middle-fire" src="./img/game/fireplace/middle-fire.webp" alt="middle-fire">
         <img class="small-fire" src="./img/game/fireplace/small-fire.jpg" alt="small-fire">
         <!-- /임한응 img area -->
     </div><!-- /img area -->
 
-    <canvas class="game-canvas" width="1920" height="1080" tabindex="0" ></canvas>   <!-- 디스플레이논 삭제,탭인덱스 추가 -->
-    <canvas class="story-canvas" width="1920" height="1080" style="display:none;"></canvas>
+    <canvas class="game-canvas" width="1400" height="700" tabindex="0" ></canvas>   <!-- 디스플레이논 삭제,탭인덱스 추가 -->
+    <canvas class="story-canvas" width="1400" height="700" style="display:none;"></canvas>
 </body>
 </html>

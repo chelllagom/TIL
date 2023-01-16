@@ -1,6 +1,6 @@
-import {wolf} from "wolf경로.js"
-import {house} from "house경로.js"
-import {firePlace} from "firePlace경로.js"
+// import {wolf} from "wolf경로.js"
+// import {house} from "house경로.js"
+import FirePlace from "../game/fireplace/fire.js"
 
 class GameCanvas{
     #wolf;
@@ -13,14 +13,14 @@ class GameCanvas{
         this.dom = document.querySelector(".game-canvas");
         this.dom.focus();
 
-        /**@type {CanvasRenderingContext2D} */
-        this.ctx = this.dom.getContext("2d");
+        // /**@type {CanvasRenderingContext2D} */
+        // this.ctx = this.dom.getContext("2d");
 
-        this.#wolf = wolf;
-        this.#house = house;
-        this.#firePlace = firePlace;
-        this.#objArr = [wolf, house, firePlace];
-        this.#curObj = wolf;
+        //this.#wolf = wolf;
+        //this.#house = house;
+        this.#firePlace = new FirePlace(this.dom);
+        this.#objArr = [this.#firePlace];
+        this.#curObj = this.#firePlace;
 
         //add eventHandler
         this.dom.addEventListener("load", this.eventHandler);
@@ -44,7 +44,7 @@ class GameCanvas{
     }
     
     update(){
-        this.#curObj.update();
+        this.#curObj.update(this.ctx);
     }
 
     draw(){
